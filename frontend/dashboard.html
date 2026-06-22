@@ -1061,9 +1061,37 @@
   }
   #ob-chick:hover .chick-tip { opacity:1; transform: translateY(0); }
   @media (max-width: 768px) { #ob-chick { width: 38px; height: 38px; right: 12px; bottom: 12px; } }
+
+  /* SVG icon system */
+  .icon { width:1em; height:1em; vertical-align:-0.15em; display:inline-block; flex-shrink:0; overflow:hidden; }
+  .icon-ok  { color: var(--positive, #2a9d3f); }
+  .icon-err { color: var(--negative); }
+  .icon-warn { color: var(--warning, #b89962); }
 </style>
 </head>
 <body>
+
+<!-- SVG icon sprite — all icons referenced via <use href="#i-*"> -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,9 6,13 14,3"/></symbol>
+  <symbol id="i-x" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="8,1.5 15.5,14.5 0.5,14.5"/><line x1="8" y1="6.5" x2="8" y2="10"/><circle cx="8" cy="12.5" r="0.7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 16 16"><rect x="3" y="3" width="10" height="10" rx="2" fill="currentColor"/></symbol>
+  <symbol id="i-info" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="5.2" r="0.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><polyline points="8,4.5 8,8 10.5,10.5"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="3" width="3" height="10" rx="1"/><rect x="9.5" y="3" width="3" height="10" rx="1"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5 C11 3 13 6 13 9 L10 12.5 L8 14.5 L6 12.5 L3 9 C3 6 5 3 8 1.5Z"/><circle cx="8" cy="7" r="1.5" fill="currentColor" stroke="none"/><path d="M5.5 11.5 L4 14"/><path d="M10.5 11.5 L12 14"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1.5" width="14" height="10" rx="1.5"/><line x1="5" y1="14" x2="11" y2="14"/><line x1="8" y1="11.5" x2="8" y2="14"/></symbol>
+  <symbol id="i-chip" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="4" y="4" width="8" height="8" rx="1"/><line x1="4" y1="6" x2="2" y2="6"/><line x1="4" y1="8" x2="2" y2="8"/><line x1="4" y1="10" x2="2" y2="10"/><line x1="12" y1="6" x2="14" y2="6"/><line x1="12" y1="8" x2="14" y2="8"/><line x1="12" y1="10" x2="14" y2="10"/><line x1="6" y1="4" x2="6" y2="2"/><line x1="8" y1="4" x2="8" y2="2"/><line x1="10" y1="4" x2="10" y2="2"/><line x1="6" y1="12" x2="6" y2="14"/><line x1="8" y1="12" x2="8" y2="14"/><line x1="10" y1="12" x2="10" y2="14"/></symbol>
+  <symbol id="i-download" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="1.5" x2="8" y2="10.5"/><polyline points="4,7 8,11.5 12,7"/><line x1="2" y1="14.5" x2="14" y2="14.5"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="11.5" x2="8" y2="2.5"/><polyline points="4,6 8,1.5 12,6"/><line x1="2" y1="14.5" x2="14" y2="14.5"/></symbol>
+  <symbol id="i-anchor" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="4" r="2"/><line x1="8" y1="6" x2="8" y2="14"/><path d="M4 10.5 C4 13 6 14 8 14 C10 14 12 13 12 10.5"/><line x1="2" y1="7" x2="14" y2="7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="12" x2="8" y2="15.5"/><path d="M5 2 L11 2 L12.5 9.5 L3.5 9.5 Z"/><line x1="8" y1="2" x2="8" y2="6"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2 L14 5 L6 13 L2 14 L3 10 Z"/><line x1="9" y1="4" x2="12" y2="7"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6 L3 12.5 C3 13.3 3.7 14 4.5 14 L9.5 14 C10.3 14 11 13.3 11 12.5 L11 6 Z"/><path d="M11 7.5 L12.5 7.5 C13.6 7.5 14.5 8.4 14.5 9.5 C14.5 10.6 13.6 11.5 12.5 11.5 L11 11.5"/><path d="M6 2 C6 2 6.5 3.5 6 4.5"/><path d="M8.5 2 C8.5 2 9 3.5 8.5 4.5"/></symbol>
+  <symbol id="i-ribbon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 7.5C7.5 7 3.5 4.5 3.5 2.5C3.5 1.5 4.2 1 5 1.5L8 5.5L11 1.5C11.8 1 12.5 1.5 12.5 2.5C12.5 4.5 8.5 7 8 7.5Z"/><path d="M8 8.5C7.5 9 3.5 11.5 3.5 13.5C3.5 14.5 4.2 15 5 14.5L8 10.5L11 14.5C11.8 15 12.5 14.5 12.5 13.5C12.5 11.5 8.5 9 8 8.5Z"/><circle cx="8" cy="8" r="1.8"/></symbol>
+  <symbol id="i-envelope" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="1.5"/><polyline points="1,3.5 8,9.5 15,3.5"/></symbol>
+</svg>
 
 <div class="header">
   <h1>
@@ -1257,7 +1285,7 @@
         <span>原文: <b id="import-raw">0</b></span>
       </div>
       <div style="margin-top:12px;">
-        <button id="import-pause-btn" onclick="pauseImport()" style="display:none;">⏸ 暂停</button>
+        <button id="import-pause-btn" onclick="pauseImport()" style="display:none;align-items:center;gap:4px;"><svg class="icon" aria-hidden="true"><use href="#i-pause"></use></svg> 暂停</button>
       </div>
     </div>
 
@@ -1280,7 +1308,7 @@
 <div class="content" id="config-view" style="display:none"></div>
 
 <div class="detail-panel" id="detail-panel">
-  <button class="close-btn" onclick="closeDetail()">✕</button>
+  <button class="close-btn" onclick="closeDetail()"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button>
   <div id="detail-content"></div>
 </div>
 
@@ -1341,7 +1369,7 @@
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">
         <button class="btn-secondary" onclick="loadPlans()" style="padding:6px 14px;font-size:12px;"><i data-lucide="refresh-cw"></i> 刷新</button>
         <span id="plan-stats" style="font-size:12px;color:var(--text-dim);"></span>
-        <span style="margin-left:auto;font-size:11px;color:var(--text-light);">勾 ☑ = 完成 / ✕ = 放弃 / ↻ = 重新激活</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--text-light);display:inline-flex;align-items:center;gap:4px;"><svg class="icon icon-ok" aria-hidden="true"><use href="#i-check"></use></svg> 完成 / <svg class="icon icon-err" aria-hidden="true"><use href="#i-x"></use></svg> 放弃 / <svg class="icon" aria-hidden="true" style="transform:scaleX(-1)"><use href="#i-clock"></use></svg> 重新激活</span>
       </div>
       <div id="plan-board" style="display:flex;flex-direction:column;gap:24px;">
         <div style="text-align:center;color:var(--text-dim);padding:36px 0;font-size:13px;">点击「刷新」加载…</div>
@@ -1466,7 +1494,7 @@
       <div style="margin-bottom:18px;">
         <div style="font-weight:600;font-size:13px;margin-bottom:6px;">账户密码</div>
         <div id="settings-env-notice" style="display:none;font-size:12px;color:var(--warning);margin-bottom:8px;">
-          ⚠ 当前使用环境变量 OMBRE_DASHBOARD_PASSWORD，请直接修改环境变量。
+          <svg class="icon icon-warn" aria-hidden="true"><use href="#i-warn"></use></svg> 当前使用环境变量 OMBRE_DASHBOARD_PASSWORD，请直接修改环境变量。
         </div>
         <div id="settings-pwd-form">
           <div class="config-row"><label>当前密码</label><input type="password" id="settings-current-pwd" placeholder="当前密码" /></div>
@@ -1547,7 +1575,7 @@
         <div style="font-weight:600;font-size:13px;margin-bottom:6px;">宿主机记忆桶目录 (Docker)</div>
         <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.6;">
           docker-compose 中 <code>${OMBRE_HOST_VAULT_DIR:-./buckets}:/data</code> 的宿主机路径。留空 = 项目内 <code>./buckets</code>。
-          <span style="color:var(--warning);">⚠ 修改后需在宿主机执行 <code>docker compose down && docker compose up -d</code> 才会生效。</span>
+          <span style="color:var(--warning);"><svg class="icon icon-warn" aria-hidden="true"><use href="#i-warn"></use></svg> 修改后需在宿主机执行 <code>docker compose down && docker compose up -d</code> 才会生效。</span>
         </div>
         <div class="config-row">
           <label>路径</label>
@@ -1568,7 +1596,7 @@
       <div style="margin-bottom:18px;">
         <div style="font-weight:600;font-size:13px;margin-bottom:6px;">脱水 / 打标 LLM</div>
         <div id="dehy-key-notice" style="display:none;font-size:12px;color:var(--warning);margin-bottom:10px;padding:7px 10px;background:rgba(184,153,98,0.08);border-radius:4px;line-height:1.6;">
-          ⚠ 压缩 API Key 未配置，桶内容将无法被自动脱水压缩，记忆系统无法正常运行。请在下方输入框填入 Key 并点击「保存 Key」。
+          <svg class="icon icon-warn" aria-hidden="true"><use href="#i-warn"></use></svg> 压缩 API Key 未配置，桶内容将无法被自动脱水压缩，记忆系统无法正常运行。请在下方输入框填入 Key 并点击「保存 Key」。
         </div>
         <div class="config-row">
           <label>格式</label>
@@ -1600,7 +1628,7 @@
       <div>
         <div style="font-weight:600;font-size:13px;margin-bottom:6px;">向量化 Embedding</div>
         <div id="emb-key-notice" style="display:none;font-size:12px;color:var(--warning);margin-bottom:10px;padding:7px 10px;background:rgba(184,153,98,0.08);border-radius:4px;line-height:1.6;">
-          ⚠ Ombre Brain 必须配置向量化 Embedding API Key 才能正常使用。未配置时语义检索完全不可用，记忆系统无法运作。请在下方填入 Key 并点击「保存 Key」，保存后立即生效。
+          <svg class="icon icon-warn" aria-hidden="true"><use href="#i-warn"></use></svg> Ombre Brain 必须配置向量化 Embedding API Key 才能正常使用。未配置时语义检索完全不可用，记忆系统无法运作。请在下方填入 Key 并点击「保存 Key」，保存后立即生效。
         </div>
         <div id="emb-info-panel" style="margin-bottom:10px;padding:10px 12px;background:var(--bg-soft,#f4f4f4);border-radius:6px;font-size:12px;line-height:1.7;color:var(--text);">
           <div>当前后端：<b id="emb-info-backend">—</b> · 模型：<span id="emb-info-model">—</span> · 维度：<span id="emb-info-dim">—</span></div>
@@ -1633,7 +1661,7 @@
         <div class="config-row">
           <label>后端</label>
           <select id="cfg-emb-backend">
-            <option value="api">Gemini API（云端）</option>
+            <option value="api">云端 API</option>
           </select>
         </div>
         <div id="cfg-emb-backend-note" style="margin-top:-4px;padding-left:122px;font-size:11px;color:var(--text-light);line-height:1.6;"></div>
@@ -1653,15 +1681,15 @@
 
         <!-- 本地向量模型 (Ollama / bge-m3) -->
         <div style="margin-top:14px;padding:12px;border:1px solid var(--border,#ddd);border-radius:8px;background:var(--bg-soft,#f7f6f2);">
-          <div style="font-weight:600;font-size:13px;margin-bottom:4px;">🖥️ 本地向量模型 <span style="font-weight:400;color:var(--text-light);font-size:11px;">/ Ollama · bge-m3（离线、无需 key、不出网）</span></div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:4px;display:flex;align-items:center;gap:6px;"><svg class="icon" aria-hidden="true"><use href="#i-monitor"></use></svg> 本地向量模型 <span style="font-weight:400;color:var(--text-light);font-size:11px;">/ Ollama · bge-m3（离线、无需 key、不出网）</span></div>
           <div style="font-size:11px;color:var(--text-light);line-height:1.6;margin-bottom:8px;">
-            💾 需约 <b>2–3GB 空闲内存</b>（模型常驻）+ 1.2GB 磁盘；纯 CPU 即可，首条查询约 1–9s（冷启动），之后 &lt;0.5s。低配机器（&lt;2GB 空闲内存）建议继续用云端 Gemini。
+            <svg class="icon" aria-hidden="true"><use href="#i-chip"></use></svg> 需约 <b>2–3GB 空闲内存</b>（模型常驻）+ 1.2GB 磁盘；纯 CPU 即可，首条查询约 1–9s（冷启动），之后 &lt;0.5s。低配机器（&lt;2GB 空闲内存）建议继续用云端向量化。
           </div>
           <div id="local-emb-status" style="font-size:12px;line-height:1.7;color:var(--text);margin-bottom:8px;">读取中…</div>
 
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
-            <button type="button" class="btn-primary" onclick="oneClickLocal()" style="padding:7px 14px;">🚀 一键搭建本地向量化（下载 + 切换）</button>
-            <button type="button" onclick="switchEmbedding('gemini')" style="padding:7px 12px;">切回云端 Gemini</button>
+            <button type="button" class="btn-primary" onclick="oneClickLocal()" style="padding:7px 14px;display:inline-flex;align-items:center;gap:6px;"><svg class="icon" aria-hidden="true"><use href="#i-rocket"></use></svg> 一键搭建本地向量化（下载 + 切换）</button>
+            <button type="button" onclick="switchEmbedding('gemini')" style="padding:7px 12px;">切回云端</button>
             <button type="button" onclick="loadLocalEmbStatus()" style="padding:7px 12px;">刷新状态</button>
           </div>
 
@@ -1941,7 +1969,7 @@
           导出打包当前所有 bucket markdown + embeddings.db（<strong>不包含 config / 密钥</strong>），可用于本地备份或跨设备迁移。<br>
           重复桶：每次 hold/grow 后系统会标记相似度 &gt; 0.95 的对，下面可逐对处理。
         </div>
-        <button class="btn-primary" onclick="downloadExport()">⬇ 导出全部为 zip</button>
+        <button class="btn-primary" onclick="downloadExport()" style="display:inline-flex;align-items:center;gap:6px;"><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg> 导出全部为 zip</button>
         <button onclick="loadDuplicates()" class="icon-btn" style="margin-left:8px;"><i data-lucide="copy"></i> 检查重复桶</button>
         <div id="duplicates-list" style="margin-top:14px;font-size:12px;"></div>
       </div>
@@ -1968,12 +1996,12 @@
           <div id="migrate-parse-info" style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.7;"></div>
 
           <div id="migrate-conflicts-section" style="display:none;">
-            <div style="font-weight:600;font-size:12px;margin-bottom:6px;">⚠ 以下 bucket 在当前系统中已存在，请为每个冲突选择处理方式：</div>
+            <div style="font-weight:600;font-size:12px;margin-bottom:6px;"><svg class="icon icon-warn" aria-hidden="true"><use href="#i-warn"></use></svg> 以下 bucket 在当前系统中已存在，请为每个冲突选择处理方式：</div>
             <div id="migrate-conflicts-list" style="max-height:280px;overflow-y:auto;font-size:12px;"></div>
           </div>
 
           <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-            <button class="btn-primary" id="migrate-apply-btn" onclick="applyMigrate()">⬆ 开始导入</button>
+            <button class="btn-primary" id="migrate-apply-btn" onclick="applyMigrate()" style="display:inline-flex;align-items:center;gap:6px;"><svg class="icon" aria-hidden="true"><use href="#i-upload"></use></svg> 开始导入</button>
             <button onclick="resetMigrate()" style="font-size:12px;padding:4px 12px;background:none;border:1px solid var(--border);border-radius:4px;cursor:pointer;color:var(--text-dim);">取消</button>
           </div>
         </div>
@@ -2079,6 +2107,21 @@
 </div>
 
 <script>
+// SVG icon strings — drop-in replacements for emoji in innerHTML
+const _SV = {
+  ok:     '<svg class="icon icon-ok"   aria-hidden="true"><use href="#i-check"></use></svg>',
+  err:    '<svg class="icon icon-err"  aria-hidden="true"><use href="#i-x"></use></svg>',
+  warn:   '<svg class="icon icon-warn" aria-hidden="true"><use href="#i-warn"></use></svg>',
+  stop:   '<svg class="icon icon-err"  aria-hidden="true"><use href="#i-stop"></use></svg>',
+  info:   '<svg class="icon"           aria-hidden="true"><use href="#i-info"></use></svg>',
+  clock:  '<svg class="icon"           aria-hidden="true"><use href="#i-clock"></use></svg>',
+  pause:  '<svg class="icon"           aria-hidden="true"><use href="#i-pause"></use></svg>',
+  anchor: '<svg class="icon"           aria-hidden="true"><use href="#i-anchor"></use></svg>',
+  pin:    '<svg class="icon"           aria-hidden="true"><use href="#i-pin"></use></svg>',
+  edit:   '<svg class="icon"           aria-hidden="true"><use href="#i-edit"></use></svg>',
+  coffee: '<svg class="icon"           aria-hidden="true"><use href="#i-coffee"></use></svg>',
+  ribbon: '<svg class="icon"           aria-hidden="true"><use href="#i-ribbon"></use></svg>',
+};
 // ========================================
 // Auth system / 认证系统
 // ========================================
@@ -2259,7 +2302,7 @@ async function saveTunnelToken() {
   });
   if (!resp) return;
   if (resp.ok) {
-    msgEl.style.color = 'var(--accent)'; msgEl.textContent = '✓ Token 已保存，点击"启动"连接';
+    msgEl.style.color = 'var(--accent)'; msgEl.innerHTML = _SV.ok + ' Token 已保存，点击"启动"连接';
     document.getElementById('tunnel-token-input').value = '';
     setTimeout(() => { msgEl.textContent = ''; }, 4000);
   } else {
@@ -2366,7 +2409,7 @@ async function fetchModels(section) {
   // Key validation: must have a key typed OR a key already saved on server
   if (!apiKey && !keyIsAlreadySaved) {
     listEl.style.display = 'block';
-    listEl.innerHTML = '<div style="padding:8px 12px;color:var(--warning);">⚠ 请先输入并保存 API Key，再获取模型列表</div>';
+    listEl.innerHTML = '<div style="padding:8px 12px;color:var(--warning);">' + _SV.warn + ' 请先输入并保存 API Key，再获取模型列表</div>';
     return;
   }
 
@@ -2385,7 +2428,7 @@ async function fetchModels(section) {
     if (!r) { listEl.style.display = 'none'; return; }
     var d = await readJsonSafe(r);
     if (!d.ok || !d.models || !d.models.length) {
-      listEl.innerHTML = '<div style="padding:8px 12px;color:var(--negative);">✗ ' + (d.error || '无可用模型') + '</div>';
+      listEl.innerHTML = '<div style="padding:8px 12px;color:var(--negative);">' + _SV.err + ' ' + esc(d.error || '无可用模型') + '</div>';
       return;
     }
     listEl.innerHTML = d.models.map(function(m) {
@@ -2397,7 +2440,7 @@ async function fetchModels(section) {
         m + '</div>';
     }).join('');
   } catch (e) {
-    listEl.innerHTML = '<div style="padding:8px 12px;color:var(--negative);">✗ ' + e.message + '</div>';
+    listEl.innerHTML = '<div style="padding:8px 12px;color:var(--negative);">' + _SV.err + ' ' + esc(e.message) + '</div>';
   }
 }
 
@@ -2408,9 +2451,9 @@ async function testDehydrationKey() {
   if (!resp) return;
   const d = await resp.json().catch(() => ({}));
   if (d.ok) {
-    msgEl.style.color = 'var(--positive, #4caf50)'; msgEl.textContent = d.message || '✓ 连接成功';
+    msgEl.style.color = 'var(--positive, #4caf50)'; msgEl.innerHTML = _SV.ok + ' ' + esc(d.message || '连接成功');
   } else {
-    msgEl.style.color = 'var(--negative)'; msgEl.textContent = '✗ ' + (d.error || '连接失败');
+    msgEl.style.color = 'var(--negative)'; msgEl.innerHTML = _SV.err + ' ' + esc(d.error || '连接失败');
   }
 }
 
@@ -2470,7 +2513,7 @@ async function loadEnvVars() {
         let valCell;
         if (v.sensitive) {
           valCell = v.set
-            ? `<span style="color:var(--positive);">已配置 ✓</span>`
+            ? `<span style="color:var(--positive);">已配置 ${_SV.ok}</span>`
             : `<span style="color:var(--text-dim);">未配置 —</span>`;
         } else {
           valCell = v.value != null
@@ -2673,7 +2716,7 @@ async function toolGithubSync() {
     var resp = await authFetch('/api/github/sync', { method: 'POST' });
     if (!resp) return;
     var d = await resp.json().catch(function(){return{};});
-    if (resp.ok) { out.innerHTML = '<b style="color:var(--positive)">✓ 已备份</b> ' + esc(d.message || d.commit || ''); }
+    if (resp.ok) { out.innerHTML = _SV.ok + ' <b style="color:var(--positive)">已备份</b> ' + esc(d.message || d.commit || ''); }
     else { out.innerHTML = '<span style="color:var(--negative)">同步失败：' + esc(d.error || '请先在「设置 → ⑦」配置 GitHub') + '</span>'; }
   } catch (e) { out.textContent = '失败: ' + e; }
 }
@@ -3001,10 +3044,10 @@ async function showDetail(id) {
         '<div class="field"><label>重要度</label>' + (meta.importance || 5) + '/10</div>' +
         '<div class="field"><label>权重分</label>' + (b.score != null ? b.score.toFixed(4) : '—') + '</div>' +
         '<div class="field"><label>激活次数</label>' + (meta.activation_count || 1) + '</div>' +
-        '<div class="field"><label>已解决</label>' + (meta.resolved ? '✓' : '—') + '</div>' +
-        '<div class="field"><label>已消化</label>' + (meta.digested ? '✓' : '—') + '</div>' +
-        '<div class="field"><label>钉选</label>' + (meta.pinned ? '✓' : '—') + '</div>' +
-        '<div class="field"><label>Anchor</label>' + (meta.anchor ? '⚓ 坐标系' : '—') + '</div>' +
+        '<div class="field"><label>已解决</label>' + (meta.resolved ? _SV.ok : '—') + '</div>' +
+        '<div class="field"><label>已消化</label>' + (meta.digested ? _SV.ok : '—') + '</div>' +
+        '<div class="field"><label>钉选</label>' + (meta.pinned ? _SV.ok : '—') + '</div>' +
+        '<div class="field"><label>Anchor</label>' + (meta.anchor ? _SV.anchor+' 坐标系' : '—') + '</div>' +
         '<div class="field"><label>创建</label>' + (meta.created || '—') + '</div>' +
         '<div class="field"><label>最后活跃</label>' + (meta.last_active || '—') + '</div>' +
         weightHtml +
@@ -3126,7 +3169,7 @@ async function bucketArchive(id) {
 }
 
 async function bucketDelete(id) {
-  if (!confirm('⚠️ 这将彻底删除此记忆桶，文件不可恢复。确认删除？')) return;
+  if (!confirm('这将彻底删除此记忆桶，文件不可恢复。确认删除？')) return;
   if (!confirm('再次确认：你真的要永久删除吗？')) return;
   try {
     var res = await fetch(BASE + '/api/bucket/' + id + '?confirm=true', { method: 'DELETE' });
@@ -3265,7 +3308,7 @@ function initConceptNetwork(canvas, ctx, W, H, data) {
         var kindTxt = n.kind === 'tag' ? '#tag' : (n.kind === 'mixed' ? '双链+tag' : '[[双链]]');
         bubble.innerHTML =
           '<b>' + esc((n.kind === 'tag' ? '#' : '') + (n.label || n.id)) + '</b>' +
-          (n.anchor ? ' <span style="color:var(--accent)">⚓ anchor</span>' : '') +
+          (n.anchor ? ' <span style="color:var(--accent)">' + _SV.anchor + ' anchor</span>' : '') +
           '<br>' + kindTxt + ' · freq ' + (n.freq || 1) + ' · 关联 ' + deg + ' 个';
         bubble.style.left = (e.clientX + 16) + 'px';
         bubble.style.top = (e.clientY + 16) + 'px';
@@ -3774,7 +3817,7 @@ window.ObPet = (function () {
     if (st.started && prev === 'egg' && s !== 'egg') st.hatchT = 1000;   // 首次破壳过场
     else if (!st.started) st.stage = s;
     st.started = true;
-    setTip(s === 'egg' ? '一颗蛋 · 记点东西我就孵化' : (s === 'chick' ? '破壳啦 · ' + n + ' 段记忆' : '肥嘟嘟大吉 🎀 · ' + n + ' 段记忆'));
+    setTip(s === 'egg' ? '一颗蛋 · 记点东西我就孵化' : (s === 'chick' ? '破壳啦 · ' + n + ' 段记忆' : '肥嘟嘟大吉 · ' + n + ' 段记忆'));
     start();
   }
   function react(type) {
@@ -3926,9 +3969,9 @@ async function refreshEmbInfo() {
       var dbDim = meta.vector_dim || '';
       var mismatch = (dbModel && dbModel !== d.model) || (dbDim && String(dbDim) !== String(d.vector_dim));
       metaTxt = 'embeddings.db 元数据：model=' + dbModel + ' / dim=' + dbDim;
-      if (mismatch) metaTxt += '  ⚠ 与当前后端不一致，建议触发迁移';
+      if (mismatch) metaTxt += '  ' + _SV.warn + ' 与当前后端不一致，建议触发迁移';
     }
-    document.getElementById('emb-info-meta').textContent = metaTxt;
+    document.getElementById('emb-info-meta').innerHTML = metaTxt;
   } catch (e) {
     // ignore
   }
@@ -4031,11 +4074,11 @@ async function loadLocalEmbStatus() {
     el.innerHTML =
       'Ollama 服务：' + (d.reachable ? '<b style="color:var(--positive,#2a9d3f)">已连接</b>' : '<b style="color:var(--negative)">未连接</b>') +
       ' · <code>' + esc(d.ollama_url || '') + '</code><br>' +
-      'bge-m3 模型：' + (d.has_model ? '<b style="color:var(--positive,#2a9d3f)">已就绪 ✓</b>' : '<b style="color:var(--warning,#b89962)">未下载（先点①）</b>') +
+      'bge-m3 模型：' + (d.has_model ? '<b style="color:var(--positive,#2a9d3f)">已就绪 ' + _SV.ok + '</b>' : '<b style="color:var(--warning,#b89962)">未下载（先点①）</b>') +
       (d.models && d.models.length ? '<br><span style="color:var(--text-light)">已装：' + d.models.map(esc).join(', ') + '</span>' : '');
     var hint = document.getElementById('local-emb-hint');
     if (hint) {
-      if (!d.reachable) hint.innerHTML = '⚠ 未检测到 ollama。VPS 上应有常驻 <code>ombre-ollama</code> 容器；本机自建：<code>docker run -d --name ombre-ollama --restart unless-stopped -v ollama:/root/.ollama ollama/ollama</code> 并与 OB 同网络。';
+      if (!d.reachable) hint.innerHTML = _SV.warn + ' 未检测到 ollama。VPS 上应有常驻 <code>ombre-ollama</code> 容器；本机自建：<code>docker run -d --name ombre-ollama --restart unless-stopped -v ollama:/root/.ollama ollama/ollama</code> 并与 OB 同网络。';
       else hint.textContent = '提示：切换云端↔本地会全库重算（Gemini 3072 维 ↔ bge-m3 1024 维不通用），重算期间检索暂用旧库，不影响使用。';
     }
     if (d.pull && d.pull.running) { _renderLocalPull(d.pull); _startLocalPullPolling(); }
@@ -4050,8 +4093,8 @@ function _renderLocalPull(p) {
   if (!el || !p) return;
   if ((p.status === 'idle' || !p.status) && !p.running) { el.textContent = ''; return; }
   var txt = '下载 ' + esc(p.model || '') + '：' + esc(p.status || '') + (p.percent ? ' · ' + p.percent + '%' : '');
-  if (p.status === 'success') txt = '<b style="color:var(--positive,#2a9d3f)">✓ ' + esc(p.model || '') + ' 下载完成</b>';
-  if (p.status === 'error') txt = '<b style="color:var(--negative)">✗ 下载失败：' + esc(p.error || '') + '</b>';
+  if (p.status === 'success') txt = '<b style="color:var(--positive,#2a9d3f)">' + _SV.ok + ' ' + esc(p.model || '') + ' 下载完成</b>';
+  if (p.status === 'error') txt = '<b style="color:var(--negative)">' + _SV.err + ' 下载失败：' + esc(p.error || '') + '</b>';
   el.innerHTML = txt;
 }
 async function _pollLocalPull() {
@@ -4084,10 +4127,10 @@ async function pullLocalModel() {
     });
     if (!r) return;
     var d = await readJsonSafe(r);
-    if (!d.ok) { if (el) el.innerHTML = '<b style="color:var(--negative)">✗ ' + esc(d.error || '启动失败') + '</b>'; return; }
+    if (!d.ok) { if (el) el.innerHTML = '<b style="color:var(--negative)">' + _SV.err + ' ' + esc(d.error || '启动失败') + '</b>'; return; }
     _startLocalPullPolling();
   } catch (e) {
-    if (el) el.innerHTML = '<b style="color:var(--negative)">✗ ' + esc(e.message || e) + '</b>';
+    if (el) el.innerHTML = '<b style="color:var(--negative)">' + _SV.err + ' ' + esc(e.message || e) + '</b>';
   }
 }
 async function switchEmbedding(mode, skipConfirm) {
@@ -4120,7 +4163,7 @@ async function switchEmbedding(mode, skipConfirm) {
 
 // 一键搭建：检查 ollama → 缺模型则下载并等待 → 切换到本地并重算
 async function oneClickLocal() {
-  if (!confirm('一键搭建本地向量化（bge-m3）：\n\n· 需要约 2–3GB 空闲内存 + 1.2GB 磁盘\n· 下载模型（约 1.2GB）→ 自动切换 → 全库重算向量\n· 全程后台进行，期间可正常使用（检索暂用旧库）\n· 之后可随时「切回云端 Gemini」\n\n开始？')) return;
+  if (!confirm('一键搭建本地向量化（bge-m3）：\n\n· 需要约 2–3GB 空闲内存 + 1.2GB 磁盘\n· 下载模型（约 1.2GB）→ 自动切换 → 全库重算向量\n· 全程后台进行，期间可正常使用（检索暂用旧库）\n· 之后可随时切回云端向量化\n\n开始？')) return;
   var r = await authFetch('/api/embedding/local/status?model=bge-m3');
   if (!r) return;
   var d;
@@ -4178,7 +4221,7 @@ async function loadGithubStatus() {
       var intervalLabels = {0:'关闭', 30:'每 30 分钟', 60:'每 1 小时', 360:'每 6 小时', 720:'每 12 小时', 1440:'每 24 小时'};
       document.getElementById('gh-st-interval').textContent = intervalLabels[autoMin] || (autoMin > 0 ? '每 ' + autoMin + ' 分钟' : '关闭');
       document.getElementById('gh-st-time').textContent = d.last_sync ? new Date(d.last_sync).toLocaleString() : '从未';
-      document.getElementById('gh-st-status').textContent = {idle:'待机', ok:'成功 ✓', error:'失败 ✗'}[d.last_status] || d.last_status;
+      document.getElementById('gh-st-status').innerHTML = ({idle:'待机', ok: _SV.ok+' 成功', error: _SV.err+' 失败'})[d.last_status] || esc(d.last_status);
       var errRow = document.getElementById('gh-st-error-row');
       if (d.last_error) {
         errRow.style.display = '';
@@ -4195,7 +4238,7 @@ async function saveGithubConfig() {
   var branch = (document.getElementById('gh-branch').value || '').trim() || 'main';
   var prefix = (document.getElementById('gh-prefix').value || '').trim();
   var autoInterval = parseInt(document.getElementById('gh-interval').value || '0', 10);
-  if (!repo) { msg.textContent = '⚠ 请填写仓库名（owner/repo）'; msg.style.color = 'var(--accent)'; return; }
+  if (!repo) { msg.innerHTML = _SV.warn + ' 请填写仓库名（owner/repo）'; msg.style.color = 'var(--accent)'; return; }
   msg.textContent = '保存中…'; msg.style.color = '';
   try {
     var res = await authFetch('/api/github/config', {
@@ -4205,15 +4248,15 @@ async function saveGithubConfig() {
     });
     var d = await res.json();
     if (d.ok) {
-      msg.textContent = '✓ 配置已保存';
+      msg.innerHTML = _SV.ok + ' 配置已保存';
       msg.style.color = 'var(--success, green)';
       document.getElementById('gh-token').value = '';
       await loadGithubStatus();
     } else {
-      msg.textContent = '✗ ' + (d.error || '保存失败');
+      msg.innerHTML = _SV.err + ' ' + esc(d.error || '保存失败');
       msg.style.color = 'var(--accent)';
     }
-  } catch(e) { msg.textContent = '✗ 网络错误'; msg.style.color = 'var(--accent)'; }
+  } catch(e) { msg.innerHTML = _SV.err + ' 网络错误'; msg.style.color = 'var(--accent)'; }
 }
 
 async function validateGithub() {
@@ -4223,13 +4266,13 @@ async function validateGithub() {
     var res = await authFetch('/api/github/validate', {method: 'POST'});
     var d = await res.json();
     if (d.ok) {
-      msg.textContent = '✓ 连接成功：' + d.repo_full_name + (d.private ? '（私有）' : '（公开）');
+      msg.innerHTML = _SV.ok + ' 连接成功：' + esc(d.repo_full_name) + (d.private ? '（私有）' : '（公开）');
       msg.style.color = 'var(--success, green)';
     } else {
-      msg.textContent = '✗ ' + (d.error || '验证失败');
+      msg.innerHTML = _SV.err + ' ' + esc(d.error || '验证失败');
       msg.style.color = 'var(--accent)';
     }
-  } catch(e) { msg.textContent = '✗ 网络错误'; msg.style.color = 'var(--accent)'; }
+  } catch(e) { msg.innerHTML = _SV.err + ' 网络错误'; msg.style.color = 'var(--accent)'; }
 }
 
 async function runGithubSync() {
@@ -4241,14 +4284,14 @@ async function runGithubSync() {
     var res = await authFetch('/api/github/sync', {method: 'POST'});
     var d = await res.json();
     if (d.ok) {
-      msg.textContent = '✓ 同步完成，上传 ' + d.uploaded + ' 个文件';
+      msg.innerHTML = _SV.ok + ' 同步完成，上传 ' + d.uploaded + ' 个文件';
       msg.style.color = 'var(--success, green)';
       await loadGithubStatus();
     } else {
-      msg.textContent = '✗ ' + (d.error || '同步失败');
+      msg.innerHTML = _SV.err + ' ' + esc(d.error || '同步失败');
       msg.style.color = 'var(--accent)';
     }
-  } catch(e) { msg.textContent = '✗ 网络错误'; msg.style.color = 'var(--accent)'; }
+  } catch(e) { msg.innerHTML = _SV.err + ' 网络错误'; msg.style.color = 'var(--accent)'; }
   btn.disabled = false; btn.textContent = '立即同步 ↑';
 }
 
@@ -4385,7 +4428,7 @@ async function saveEnvConfig() {
     if (!r) return;
     var d = await readJsonSafe(r);
     if (d && d.ok) {
-      statusEl.innerHTML = '<span style="color:var(--positive,#2a9d3f)">✓ 已保存：' + (d.updated || []).join(', ') + (d.warnings && d.warnings.length ? '<br><span style="color:var(--negative)">' + d.warnings.join('; ') + '</span>' : '') + '</span>';
+      statusEl.innerHTML = '<span style="color:var(--positive,#2a9d3f)">' + _SV.ok + ' 已保存：' + (d.updated || []).join(', ') + (d.warnings && d.warnings.length ? '<br><span style="color:var(--negative)">' + d.warnings.join('; ') + '</span>' : '') + '</span>';
       refreshEnvConfig();  // 刷新显示新的脱敏值
     } else {
       statusEl.innerHTML = '<span style="color:var(--negative)">保存失败：' + (d && d.error ? d.error : '未知错误') + '</span>';
@@ -4407,14 +4450,14 @@ async function _saveEnvKeys(updates, msgElId) {
     if (!r) return;
     var d = await readJsonSafe(r);
     if (d && d.ok) {
-      if (msgEl) msgEl.innerHTML = '<span style="color:var(--positive,#2a9d3f)">✓ 已保存</span>';
+      if (msgEl) msgEl.innerHTML = '<span style="color:var(--positive,#2a9d3f)">' + _SV.ok + ' 已保存</span>';
       refreshEnvConfig();
       refreshEmbInfo();
     } else {
-      if (msgEl) msgEl.innerHTML = '<span style="color:var(--negative)">✗ ' + (d && d.error ? d.error : '失败') + '</span>';
+      if (msgEl) msgEl.innerHTML = '<span style="color:var(--negative)">' + _SV.err + ' ' + esc(d && d.error ? d.error : '失败') + '</span>';
     }
   } catch (e) {
-    if (msgEl) msgEl.innerHTML = '<span style="color:var(--negative)">✗ ' + e.message + '</span>';
+    if (msgEl) msgEl.innerHTML = '<span style="color:var(--negative)">' + _SV.err + ' ' + esc(e.message) + '</span>';
   }
 }
 
@@ -4469,13 +4512,13 @@ async function saveConfig(persist) {
     if (!res) return;
     var result = await res.json();
     if (result.ok) {
-      status.innerHTML = '<span style="color:var(--positive)">✓ 已更新: ' + result.updated.join(', ') + '</span>';
+      status.innerHTML = '<span style="color:var(--positive)">' + _SV.ok + ' 已更新: ' + result.updated.join(', ') + '</span>';
       loadConfig();
     } else {
-      status.innerHTML = '<span style="color:var(--negative)">✗ ' + (result.error || '未知错误') + '</span>';
+      status.innerHTML = '<span style="color:var(--negative)">' + _SV.err + ' ' + esc(result.error || '未知错误') + '</span>';
     }
   } catch (e) {
-    status.innerHTML = '<span style="color:var(--negative)">✗ 请求失败: ' + e.message + '</span>';
+    status.innerHTML = '<span style="color:var(--negative)">' + _SV.err + ' 请求失败: ' + esc(e.message) + '</span>';
   }
 }
 
@@ -4628,7 +4671,7 @@ async function loadAbout() {
         '<a href="' + esc(d.ifdian) + '" target="_blank" rel="noopener" style="display:inline-block;color:#fffdf5;text-decoration:none;font-size:14px;padding:11px 26px;border-radius:13px;' +
         'background:linear-gradient(150deg, var(--accent-light), var(--accent));text-shadow:0 1px 1px rgba(120,90,20,0.35);' +
         'box-shadow:5px 5px 13px var(--shadow-dark), -4px -4px 10px var(--shadow-light), inset 0 1px 0 rgba(255,255,255,0.35);">' +
-        '☕ 在爱发电支持我 / Support on Afdian</a></div>';
+        _SV.coffee + ' 在爱发电支持我 / Support on Afdian</a></div>';
     }
     html += '</div>';
     el.innerHTML = html;
@@ -4725,8 +4768,8 @@ function updateImportUI(s) {
   document.getElementById('import-created').textContent = s.memories_created;
   document.getElementById('import-merged').textContent = s.memories_merged;
   document.getElementById('import-raw').textContent = s.memories_raw;
-  const statusMap = { running: '⏳ 导入中…', paused: '⏸ 已暂停', completed: '✅ 完成', error: '❌ 出错' };
-  document.getElementById('import-status-text').textContent = statusMap[s.status] || s.status;
+  const statusMap = { running: _SV.clock+' 导入中…', paused: _SV.pause+' 已暂停', completed: _SV.ok+' 完成', error: _SV.err+' 出错' };
+  document.getElementById('import-status-text').innerHTML = statusMap[s.status] || esc(s.status);
   document.getElementById('import-pause-btn').style.display = s.status === 'running' ? '' : 'none';
   if (s.status !== 'running') clearInterval(importPollTimer);
   if (s.status === 'completed') loadImportResults();
@@ -4867,10 +4910,10 @@ async function loadLogs() {
 // 统一错误体系 — /api/errors/recent + /api/errors/clear
 // ========================================
 function _obLevelStyle(lvl) {
-  if (lvl === 'F') return { bg: 'rgba(184,92,60,0.12)', border: 'rgba(184,92,60,0.5)', label: '🛑 Fatal',   color: 'var(--accent)' };
-  if (lvl === 'E') return { bg: 'rgba(184,92,60,0.08)', border: 'rgba(184,92,60,0.35)', label: '❌ Error',   color: 'var(--accent)' };
-  if (lvl === 'W') return { bg: 'rgba(212,175,55,0.10)', border: 'rgba(212,175,55,0.40)', label: '⚠️ Warn',  color: '#7d6720' };
-  return { bg: 'rgba(120,140,170,0.08)', border: 'rgba(120,140,170,0.30)', label: 'ℹ️ Info', color: 'var(--text-dim)' };
+  if (lvl === 'F') return { bg: 'rgba(184,92,60,0.12)', border: 'rgba(184,92,60,0.5)', label: _SV.stop+' Fatal',   color: 'var(--accent)' };
+  if (lvl === 'E') return { bg: 'rgba(184,92,60,0.08)', border: 'rgba(184,92,60,0.35)', label: _SV.err+' Error',   color: 'var(--accent)' };
+  if (lvl === 'W') return { bg: 'rgba(212,175,55,0.10)', border: 'rgba(212,175,55,0.40)', label: _SV.warn+' Warn',  color: '#7d6720' };
+  return { bg: 'rgba(120,140,170,0.08)', border: 'rgba(120,140,170,0.30)', label: _SV.info+' Info', color: 'var(--text-dim)' };
 }
 
 async function loadOBErrors() {
@@ -5080,9 +5123,9 @@ function renderMigrateParsed(d) {
   let infoHtml = `解析到 <strong>${d.total_buckets}</strong> 个 bucket。`;
   if (hasEmb) {
     if (embMatch) {
-      infoHtml += ` <span style="color:var(--positive)">✓ Embedding 模型一致（${esc(importModel)}），向量数据将一并导入。</span>`;
+      infoHtml += ` <span style="color:var(--positive)">${_SV.ok} Embedding 模型一致（${esc(importModel)}），向量数据将一并导入。</span>`;
     } else {
-      infoHtml += ` <span style="color:var(--negative)">⚠ Embedding 模型不一致：导入包 <code>${esc(importModel)}</code> vs 当前 <code>${esc(currentModel)}</code>。向量数据将被丢弃，导入后自动重新向量化。</span>`;
+      infoHtml += ` <span style="color:var(--negative)">${_SV.warn} Embedding 模型不一致：导入包 <code>${esc(importModel)}</code> vs 当前 <code>${esc(currentModel)}</code>。向量数据将被丢弃，导入后自动重新向量化。</span>`;
     }
   } else {
     infoHtml += ' 导入包不含向量数据，导入后将自动重新向量化。';
@@ -5229,7 +5272,7 @@ function renderEditForm(bid, meta) {
   const curContent = (meta._content_for_edit || '').replace(/</g, '&lt;');
   return `
     <details style="margin-top:14px;border:1px solid var(--border);border-radius:2px;padding:12px 14px;background:var(--surface-solid);">
-      <summary style="cursor:pointer;font-weight:600;color:var(--accent);">✎ 编辑这条记忆</summary>
+      <summary style="cursor:pointer;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:5px;"><svg class="icon" aria-hidden="true"><use href="#i-edit"></use></svg> 编辑这条记忆</summary>
       <div style="display:grid;grid-template-columns:90px 1fr;gap:10px 12px;align-items:center;margin-top:14px;font-size:13px;">
         <label>名称</label>
         <input id="edit-name" type="text" value="${esc(meta.name || '')}" />
@@ -5301,12 +5344,12 @@ async function bucketSaveEdit(bid) {
     });
     const d = await r.json();
     if (!r.ok) throw new Error(d.error || ('HTTP ' + r.status));
-    msg.textContent = '✓ 已保存：' + (d.updated || []).join(', ');
+    msg.innerHTML = _SV.ok + ' 已保存：' + esc((d.updated || []).join(', '));
     msg.style.color = 'var(--accent)';
     await showDetail(bid);
     loadBuckets();
   } catch (e) {
-    msg.textContent = '✕ ' + e.message;
+    msg.innerHTML = _SV.err + ' ' + esc(e.message);
     msg.style.color = 'var(--negative)';
   }
 }
@@ -5366,7 +5409,7 @@ async function loadAnchorsView() {
     const d = await resp.json();
     cnt.innerHTML = `<b>${d.count}</b> / ${d.limit} 槽已用`;
     if (d.count === 0) {
-      list.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:14px 0;">还没有 anchor。在桶详情页用 ⚓ 按钮把一条「定义我们是谁」的事实钉为坐标系。</div>';
+      list.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:14px 0;">还没有 anchor。在桶详情页用 ' + _SV.anchor + ' 按钮把一条「定义我们是谁」的事实钉为坐标系。</div>';
       refreshAnchorCounter();
       return;
     }
@@ -5376,7 +5419,7 @@ async function loadAnchorsView() {
         <div style="flex:1;min-width:0;">
           <div style="font-weight:500;font-size:13px;">
             <a href="javascript:void(0)" onclick="showDetail('${a.id}')" style="color:var(--text);text-decoration:none;">${_escapeAnchorHtml(a.name || a.id)}</a>
-            ${a.pinned ? '<span style="font-size:10px;color:var(--accent);margin-left:6px;">📌 pinned</span>' : ''}
+            ${a.pinned ? '<span style="font-size:10px;color:var(--accent);margin-left:6px;display:inline-flex;align-items:center;gap:2px;">' + _SV.pin + ' pinned</span>' : ''}
           </div>
           <div style="font-size:11px;color:var(--text-dim);margin-top:2px;line-height:1.5;">${_escapeAnchorHtml(a.preview || '')}</div>
           <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">created: ${a.created || ''}</div>
@@ -5479,17 +5522,17 @@ async function sendLetter() {
     const d = await r.json();
     if (d.ok) {
       status.style.color = 'var(--accent)';
-      status.textContent = '✓ 已寄出 · ' + d.id;
+      status.innerHTML = _SV.ok + ' 已寄出 · ' + esc(d.id);
       document.getElementById('letter-content').value = '';
       document.getElementById('letter-title').value = '';
       loadLetters();
     } else {
       status.style.color = 'var(--negative)';
-      status.textContent = '✗ ' + (d.error || '失败');
+      status.innerHTML = _SV.err + ' ' + esc(d.error || '失败');
     }
   } catch (e) {
     status.style.color = 'var(--negative)';
-    status.textContent = '✗ ' + e.message;
+    status.innerHTML = _SV.err + ' ' + esc(e.message);
   }
 }
 
@@ -5514,20 +5557,20 @@ async function editLetter(id) {
       body: JSON.stringify(body),
     });
     const d = await r.json();
-    if (d.ok) { alert('✓ 已更新'); loadLetters(); }
-    else { alert('✗ ' + (d.error || '更新失败')); }
-  } catch (e) { alert('✗ ' + e.message); }
+    if (d.ok) { alert('已更新'); loadLetters(); }
+    else { alert(d.error || '更新失败'); }
+  } catch (e) { alert(e.message); }
 }
 
 async function deleteLetter(id) {
-  if (!confirm('⚠ 这将彻底删除这封信，文件不可恢复。确认删除？')) return;
+  if (!confirm('这将彻底删除这封信，文件不可恢复。确认删除？')) return;
   if (!confirm('再次确认：你真的要永久删除这封信吗？')) return;
   try {
     const r = await fetch(BASE + '/api/letter/' + encodeURIComponent(id) + '?confirm=true', { method: 'DELETE' });
     const d = await r.json();
     if (d.ok) { alert('已删除'); loadLetters(); }
-    else { alert('✗ ' + (d.error || '删除失败')); }
-  } catch (e) { alert('✗ ' + e.message); }
+    else { alert(d.error || '删除失败'); }
+  } catch (e) { alert(e.message); }
 }
 
 // ── E/F 级错误自动弹窗 ────────────────────────────────────────
@@ -5628,7 +5671,7 @@ function copyFeedback() {
   const text = `问题类型: ${type}\n描述: ${desc || '（未填写）'}\n\n--- 最近日志（30条）---\n${logs}`;
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('feedback-copy-btn');
-    btn.textContent = '✓ 已复制';
+    btn.innerHTML = _SV.ok + ' 已复制';
     setTimeout(() => { btn.textContent = '一键复制'; }, 2000);
   });
 }
@@ -5639,7 +5682,7 @@ function copyFeedback() {
   <div style="background:var(--surface-solid);border:1px solid var(--border);border-radius:4px;padding:28px 30px;width:min(600px,92vw);max-height:85vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;gap:14px;">
     <div style="display:flex;align-items:center;justify-content:space-between;">
       <span style="font-size:15px;font-weight:600;color:var(--text);">给作者反馈</span>
-      <button onclick="closeFeedback()" style="background:none;border:none;cursor:pointer;color:var(--text-dim);font-size:18px;line-height:1;">✕</button>
+      <button onclick="closeFeedback()" style="background:none;border:none;cursor:pointer;color:var(--text-dim);line-height:1;"><svg class="icon" style="width:16px;height:16px;" aria-hidden="true"><use href="#i-x"></use></svg></button>
     </div>
     <div style="display:grid;grid-template-columns:80px 1fr;gap:10px 12px;align-items:center;font-size:13px;">
       <label style="color:var(--text-dim);">问题类型</label>
@@ -5964,8 +6007,8 @@ async function saveHumanName() {
   onclick="if(event.target===this)closeErrorAlertPopup()">
   <div style="background:var(--surface-solid);border:1px solid rgba(184,92,60,0.5);border-radius:4px;width:min(560px,94vw);max-height:80vh;overflow-y:auto;padding:24px 24px 20px;box-shadow:0 8px 40px rgba(44,42,38,0.35);display:flex;flex-direction:column;gap:12px;">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-      <span style="font-size:15px;font-weight:700;color:var(--accent);">⚠ 检测到服务错误</span>
-      <button onclick="closeErrorAlertPopup()" style="background:none;border:none;cursor:pointer;color:var(--text-dim);font-size:18px;line-height:1;padding:0 4px;" title="关闭">✕</button>
+      <span style="font-size:15px;font-weight:700;color:var(--accent);display:inline-flex;align-items:center;gap:6px;"><svg class="icon icon-warn" aria-hidden="true"><use href="#i-warn"></use></svg> 检测到服务错误</span>
+      <button onclick="closeErrorAlertPopup()" style="background:none;border:none;cursor:pointer;color:var(--text-dim);line-height:1;padding:0 4px;" title="关闭"><svg class="icon" style="width:16px;height:16px;" aria-hidden="true"><use href="#i-x"></use></svg></button>
     </div>
     <p style="font-size:12px;color:var(--text-dim);margin:0;line-height:1.6;">
       以下错误已被后端记录。请确认并按建议操作，或前往「日志」Tab 查看完整报告。
