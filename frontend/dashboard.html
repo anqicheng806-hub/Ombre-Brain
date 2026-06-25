@@ -2170,9 +2170,10 @@
       <h3>① 我</h3>
 
       <div style="margin-bottom:18px;">
-        <div style="font-weight:600;font-size:13px;margin-bottom:6px;">系统通知称呼</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:6px;">称呼 / 昵称</div>
         <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.6;">
-          系统向 Claude 发送通知时用的称呼（如你的名字或昵称）。留空 = 默认「人类」。
+          系统通知 + 记忆里对你的称呼（如你的名字或昵称）。留空 = 默认「人类」。<br>
+          保存时会把已有记忆里的旧称呼一并换成新名（标题 / 正文 / 备注），新旧不再并存。
         </div>
         <div class="config-row">
           <label>称呼</label>
@@ -2181,6 +2182,14 @@
         <div style="display:flex;gap:8px;align-items:center;margin-top:6px;">
           <button class="btn-primary" onclick="saveHumanName()" title="保存" style="padding:0 14px;height:36px;display:inline-flex;align-items:center;gap:5px;"><i data-lucide="check"></i> 保存</button>
           <span id="settings-human-msg" style="font-size:12px;color:var(--text-dim);"></span>
+        </div>
+        <div style="font-size:12px;color:var(--text-dim);margin:10px 0 6px;line-height:1.6;">
+          已经改过名、但旧记忆里仍残留旧称呼（如「用户」）？在这里填旧词，一键替换为当前称呼：
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="text" id="settings-human-from" placeholder="用户" maxlength="20" style="width:120px;" />
+          <button onclick="syncExistingHuman()" title="替换旧记忆" style="font-size:12px;padding:0 12px;height:32px;display:inline-flex;align-items:center;gap:5px;"><i data-lucide="replace"></i> 替换旧记忆</button>
+          <span id="settings-human-sync-msg" style="font-size:12px;color:var(--text-dim);"></span>
         </div>
       </div>
 
@@ -7599,10 +7608,44 @@ async function saveHumanName() {
     });
     var data = await res.json();
     if (!res.ok) throw new Error(data.error || res.statusText);
-    if (msg) { msg.textContent = '已保存'; msg.style.color = 'var(--positive)'; }
-    setTimeout(function() { if (msg) msg.textContent = ''; }, 2000);
+    var changed = (data.renamed && data.renamed.buckets_changed) || 0;
+    if (msg) {
+      msg.textContent = changed > 0 ? ('已保存，并同步了 ' + changed + ' 条旧记忆') : '已保存';
+      msg.style.color = 'var(--positive)';
+    }
+    setTimeout(function() { if (msg) msg.textContent = ''; }, 4000);
   } catch (e) {
     if (msg) { msg.textContent = '保存失败：' + e.message; msg.style.color = 'var(--negative)'; }
+  }
+}
+
+async function syncExistingHuman() {
+  var fromEl = document.getElementById('settings-human-from');
+  var msg = document.getElementById('settings-human-sync-msg');
+  var from = fromEl ? fromEl.value.trim() : '';
+  if (!from) from = '用户';
+  if (msg) { msg.textContent = '替换中…'; msg.style.color = 'var(--text-dim)'; }
+  try {
+    var res = await fetch(BASE + '/api/settings/human/sync-existing', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: from }),
+    });
+    var data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || res.statusText);
+    if (data.note) {
+      if (msg) { msg.textContent = data.note; msg.style.color = 'var(--text-dim)'; }
+      return;
+    }
+    var changed = (data.renamed && data.renamed.buckets_changed) || 0;
+    if (msg) {
+      msg.textContent = changed > 0
+        ? ('已把「' + data.from + '」→「' + data.to + '」，更新了 ' + changed + ' 条记忆')
+        : ('没有找到含「' + data.from + '」的旧记忆');
+      msg.style.color = changed > 0 ? 'var(--positive)' : 'var(--text-dim)';
+    }
+  } catch (e) {
+    if (msg) { msg.textContent = '替换失败：' + e.message; msg.style.color = 'var(--negative)'; }
   }
 }
 </script>
